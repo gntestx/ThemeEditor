@@ -141,19 +141,25 @@
 
             <MudPaper Class="pa-6" Elevation="1">
                 <MudText Typo="Typo.h5" GutterBottom="true">Tabs and navigation</MudText>
-                <MudTabs Elevation="1" Rounded="true" PanelClass="pa-4">
+                <MudTabs Elevation="1" Rounded="true">
                     <MudTabPanel Text="Overview" Icon="@Icons.Material.Filled.Dashboard">
-                        <MudText>Overview content demonstrates surface, text and divider colors.</MudText>
+                        <MudPaper Class="pa-4" Elevation="0">
+                            <MudText>Overview content demonstrates surface, text and divider colors.</MudText>
+                        </MudPaper>
                     </MudTabPanel>
                     <MudTabPanel Text="Activity" Icon="@Icons.Material.Filled.Timeline">
-                        <MudList T="string">
-                            <MudListItem T="string" Icon="@Icons.Material.Filled.CheckCircle">Theme updated</MudListItem>
-                            <MudListItem T="string" Icon="@Icons.Material.Filled.CloudDone">Preview published</MudListItem>
-                            <MudListItem T="string" Icon="@Icons.Material.Filled.Person">Reviewer invited</MudListItem>
-                        </MudList>
+                        <MudPaper Class="pa-4" Elevation="0">
+                            <MudList T="string">
+                                <MudListItem T="string" Icon="@Icons.Material.Filled.CheckCircle">Theme updated</MudListItem>
+                                <MudListItem T="string" Icon="@Icons.Material.Filled.CloudDone">Preview published</MudListItem>
+                                <MudListItem T="string" Icon="@Icons.Material.Filled.Person">Reviewer invited</MudListItem>
+                            </MudList>
+                        </MudPaper>
                     </MudTabPanel>
                     <MudTabPanel Text="Settings" Icon="@Icons.Material.Filled.Settings">
-                        <MudText>Settings content follows the active typography and palette.</MudText>
+                        <MudPaper Class="pa-4" Elevation="0">
+                            <MudText>Settings content follows the active typography and palette.</MudText>
+                        </MudPaper>
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
