@@ -1,0 +1,136 @@
+@page "/"
+
+<PageTitle>MudTheme Studio</PageTitle>
+
+<MudGrid Spacing="4">
+    <MudItem xs="12" lg="4">
+        <ThemeEditorPanel Theme="Theme"
+                          IsDarkMode="DarkMode"
+                          ThemeChanged="OnThemeChanged"
+                          IsDarkModeChanged="OnDarkModeChanged"
+                          ResetRequested="OnReset" />
+    </MudItem>
+
+    <MudItem xs="12" lg="8">
+        <MudStack Spacing="4">
+            <section>
+                <MudText Typo="Typo.h2" GutterBottom="true">Design a MudTheme visually</MudText>
+                <MudText Typo="Typo.body1" Color="Color.Secondary">
+                    Edit colors and shape in the panel. Every example below uses the active theme.
+                </MudText>
+            </section>
+
+            <MudPaper Class="pa-6" Elevation="1">
+                <MudText Typo="Typo.h5" GutterBottom="true">Buttons and status</MudText>
+                <MudStack Row="true" Spacing="2" Class="flex-wrap">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Secondary">Secondary</MudButton>
+                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Add">Add item</MudButton>
+                    <MudChip T="string" Color="Color.Success">Published</MudChip>
+                    <MudChip T="string" Color="Color.Warning" Variant="Variant.Outlined">Draft</MudChip>
+                </MudStack>
+            </MudPaper>
+
+            <MudGrid Spacing="3">
+                @foreach (var card in Cards)
+                {
+                    <MudItem xs="12" sm="6">
+                        <MudCard>
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Typo="Typo.h6">@card.Title</MudText>
+                                    <MudText Typo="Typo.caption">@card.Meta</MudText>
+                                </CardHeaderContent>
+                                <CardHeaderActions>
+                                    <MudIconButton Icon="@Icons.Material.Filled.MoreVert" />
+                                </CardHeaderActions>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudText>@card.Description</MudText>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudButton Color="Color.Primary">Open</MudButton>
+                                <MudSpacer />
+                                <MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Color="Color.Secondary" />
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem>
+                }
+            </MudGrid>
+
+            <MudPaper Class="pa-6" Elevation="1">
+                <MudText Typo="Typo.h5" GutterBottom="true">Form controls</MudText>
+                <MudGrid>
+                    <MudItem xs="12" sm="6">
+                        <MudTextField Label="Project name" Value="@("ThemeEditor")" Variant="Variant.Outlined" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSelect T="string" Label="Environment" Value="@("Development")" Variant="Variant.Outlined">
+                            <MudSelectItem Value="@("Development")">Development</MudSelectItem>
+                            <MudSelectItem Value="@("Staging")">Staging</MudSelectItem>
+                            <MudSelectItem Value="@("Production")">Production</MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudAlert Severity="Severity.Info" Variant="Variant.Outlined">
+                            The editor component is a separate Razor class library and can be reused in other apps.
+                        </MudAlert>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+
+            <MudPaper Class="pa-6" Elevation="1">
+                <MudText Typo="Typo.h5" GutterBottom="true">Table</MudText>
+                <MudTable Items="Rows" Hover="true" Striped="true">
+                    <HeaderContent>
+                        <MudTh>Name</MudTh>
+                        <MudTh>Status</MudTh>
+                        <MudTh Class="text-right">Score</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="Status">@context.Status</MudTd>
+                        <MudTd DataLabel="Score" Class="text-right">@context.Score</MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudPaper>
+        </MudStack>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [CascadingParameter]
+    private MudTheme Theme { get; set; } = new();
+
+    [CascadingParameter(Name = "DarkMode")]
+    private bool DarkMode { get; set; }
+
+    [CascadingParameter(Name = "ApplyTheme")]
+    private Action<MudTheme> ApplyTheme { get; set; } = _ => { };
+
+    [CascadingParameter(Name = "ApplyDarkMode")]
+    private Action<bool> ApplyDarkMode { get; set; } = _ => { };
+
+    [CascadingParameter(Name = "ResetTheme")]
+    private Action ResetTheme { get; set; } = () => { };
+
+    private readonly CardData[] Cards =
+    [
+        new("Product surface", "Updated today", "Cards, spacing, typography and actions adapt to the theme."),
+        new("Dashboard module", "3 active users", "Use the same theme object throughout a complete application.")
+    ];
+
+    private readonly RowData[] Rows =
+    [
+        new("Accessibility", "Ready", 96),
+        new("Visual consistency", "Review", 88),
+        new("Component coverage", "Ready", 92)
+    ];
+
+    private void OnThemeChanged(MudTheme value) => ApplyTheme(value);
+    private void OnDarkModeChanged(bool value) => ApplyDarkMode(value);
+    private void OnReset() => ResetTheme();
+
+    private sealed record CardData(string Title, string Meta, string Description);
+    private sealed record RowData(string Name, string Status, int Score);
+}

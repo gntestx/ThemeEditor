@@ -1,0 +1,187 @@
+<MudPaper Class="theme-editor pa-5" Elevation="1">
+    <MudStack Spacing="3">
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+            <div>
+                <MudText Typo="Typo.h5">Theme editor</MudText>
+                <MudText Typo="Typo.body2" Color="Color.Secondary">Changes are applied immediately.</MudText>
+            </div>
+            <MudSwitch T="bool" Value="IsDarkMode" ValueChanged="ToggleDarkMode" Color="Color.Primary" Label="Dark mode" />
+        </MudStack>
+
+        <MudDivider />
+
+        <details open>
+            <summary>Light palette</summary>
+            <div class="color-grid section-content">
+                <ThemeColorInput Label="Primary" Value="Theme.PaletteLight.Primary" ValueChanged="value => UpdatePalette(false, PaletteProperty.Primary, value)" />
+                <ThemeColorInput Label="Secondary" Value="Theme.PaletteLight.Secondary" ValueChanged="value => UpdatePalette(false, PaletteProperty.Secondary, value)" />
+                <ThemeColorInput Label="Background" Value="Theme.PaletteLight.Background" ValueChanged="value => UpdatePalette(false, PaletteProperty.Background, value)" />
+                <ThemeColorInput Label="Surface" Value="Theme.PaletteLight.Surface" ValueChanged="value => UpdatePalette(false, PaletteProperty.Surface, value)" />
+                <ThemeColorInput Label="App bar" Value="Theme.PaletteLight.AppbarBackground" ValueChanged="value => UpdatePalette(false, PaletteProperty.Appbar, value)" />
+                <ThemeColorInput Label="Primary text" Value="Theme.PaletteLight.TextPrimary" ValueChanged="value => UpdatePalette(false, PaletteProperty.TextPrimary, value)" />
+                <ThemeColorInput Label="Secondary text" Value="Theme.PaletteLight.TextSecondary" ValueChanged="value => UpdatePalette(false, PaletteProperty.TextSecondary, value)" />
+                <ThemeColorInput Label="Divider" Value="Theme.PaletteLight.Divider" ValueChanged="value => UpdatePalette(false, PaletteProperty.Divider, value)" />
+                <ThemeColorInput Label="Info" Value="Theme.PaletteLight.Info" ValueChanged="value => UpdatePalette(false, PaletteProperty.Info, value)" />
+                <ThemeColorInput Label="Success" Value="Theme.PaletteLight.Success" ValueChanged="value => UpdatePalette(false, PaletteProperty.Success, value)" />
+                <ThemeColorInput Label="Warning" Value="Theme.PaletteLight.Warning" ValueChanged="value => UpdatePalette(false, PaletteProperty.Warning, value)" />
+                <ThemeColorInput Label="Error" Value="Theme.PaletteLight.Error" ValueChanged="value => UpdatePalette(false, PaletteProperty.Error, value)" />
+            </div>
+        </details>
+
+        <details>
+            <summary>Dark palette</summary>
+            <div class="color-grid section-content">
+                <ThemeColorInput Label="Primary" Value="Theme.PaletteDark.Primary" ValueChanged="value => UpdatePalette(true, PaletteProperty.Primary, value)" />
+                <ThemeColorInput Label="Secondary" Value="Theme.PaletteDark.Secondary" ValueChanged="value => UpdatePalette(true, PaletteProperty.Secondary, value)" />
+                <ThemeColorInput Label="Background" Value="Theme.PaletteDark.Background" ValueChanged="value => UpdatePalette(true, PaletteProperty.Background, value)" />
+                <ThemeColorInput Label="Surface" Value="Theme.PaletteDark.Surface" ValueChanged="value => UpdatePalette(true, PaletteProperty.Surface, value)" />
+                <ThemeColorInput Label="App bar" Value="Theme.PaletteDark.AppbarBackground" ValueChanged="value => UpdatePalette(true, PaletteProperty.Appbar, value)" />
+                <ThemeColorInput Label="Primary text" Value="Theme.PaletteDark.TextPrimary" ValueChanged="value => UpdatePalette(true, PaletteProperty.TextPrimary, value)" />
+                <ThemeColorInput Label="Secondary text" Value="Theme.PaletteDark.TextSecondary" ValueChanged="value => UpdatePalette(true, PaletteProperty.TextSecondary, value)" />
+                <ThemeColorInput Label="Divider" Value="Theme.PaletteDark.Divider" ValueChanged="value => UpdatePalette(true, PaletteProperty.Divider, value)" />
+                <ThemeColorInput Label="Info" Value="Theme.PaletteDark.Info" ValueChanged="value => UpdatePalette(true, PaletteProperty.Info, value)" />
+                <ThemeColorInput Label="Success" Value="Theme.PaletteDark.Success" ValueChanged="value => UpdatePalette(true, PaletteProperty.Success, value)" />
+                <ThemeColorInput Label="Warning" Value="Theme.PaletteDark.Warning" ValueChanged="value => UpdatePalette(true, PaletteProperty.Warning, value)" />
+                <ThemeColorInput Label="Error" Value="Theme.PaletteDark.Error" ValueChanged="value => UpdatePalette(true, PaletteProperty.Error, value)" />
+            </div>
+        </details>
+
+        <details open>
+            <summary>Typography</summary>
+            <MudStack Spacing="2" Class="section-content">
+                <MudSelect T="string"
+                           Label="Font family"
+                           Value="@FontFamily"
+                           ValueChanged="UpdateFontFamily"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense">
+                    @foreach (var font in FontFamilies)
+                    {
+                        <MudSelectItem T="string" Value="@font.Value">@font.Label</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <TypographyStyleInput Label="H1" Style="Theme.Typography.H1" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H2" Style="Theme.Typography.H2" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H3" Style="Theme.Typography.H3" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H4" Style="Theme.Typography.H4" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H5" Style="Theme.Typography.H5" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H6" Style="Theme.Typography.H6" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Subtitle 1" Style="Theme.Typography.Subtitle1" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Subtitle 2" Style="Theme.Typography.Subtitle2" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Body 1" Style="Theme.Typography.Body1" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Body 2" Style="Theme.Typography.Body2" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Button" Style="Theme.Typography.Button" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Caption" Style="Theme.Typography.Caption" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Overline" Style="Theme.Typography.Overline" Changed="NotifyThemeChanged" />
+            </MudStack>
+        </details>
+
+        <details open>
+            <summary>Shape</summary>
+            <div class="section-content">
+                <MudText Typo="Typo.body2">Default border radius: @BorderRadius px</MudText>
+                <MudSlider T="int" Min="0" Max="32" Step="1" Value="BorderRadius" ValueChanged="UpdateRadius" Color="Color.Primary" />
+            </div>
+        </details>
+
+        <MudStack Row="true" Justify="Justify.FlexEnd">
+            <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.RestartAlt" OnClick="Reset">
+                Reset to MudBlazor defaults
+            </MudButton>
+        </MudStack>
+    </MudStack>
+</MudPaper>
+
+@code {
+    private static readonly FontFamilyOption[] FontFamilies =
+    [
+        new("MudBlazor default", "Roboto, Helvetica, Arial, sans-serif"),
+        new("System UI", "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"),
+        new("Arial", "Arial, Helvetica, sans-serif"),
+        new("Georgia", "Georgia, Times New Roman, serif"),
+        new("Monospace", "Consolas, Monaco, monospace")
+    ];
+
+    [Parameter, EditorRequired]
+    public MudTheme Theme { get; set; } = new();
+
+    [Parameter]
+    public bool IsDarkMode { get; set; }
+
+    [Parameter]
+    public EventCallback<MudTheme> ThemeChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsDarkModeChanged { get; set; }
+
+    [Parameter]
+    public EventCallback ResetRequested { get; set; }
+
+    private string FontFamily => string.Join(", ", Theme.Typography.Default.FontFamily ?? Array.Empty<string>());
+
+    private int BorderRadius =>
+        int.TryParse(Theme.LayoutProperties.DefaultBorderRadius.Replace("px", string.Empty), out var value) ? value : 4;
+
+    private Task ToggleDarkMode(bool value) => IsDarkModeChanged.InvokeAsync(value);
+
+    private async Task UpdatePalette(bool dark, PaletteProperty property, MudColor? value)
+    {
+        if (value is null)
+            return;
+
+        var palette = dark ? Theme.PaletteDark : Theme.PaletteLight;
+        switch (property)
+        {
+            case PaletteProperty.Primary: palette.Primary = value; break;
+            case PaletteProperty.Secondary: palette.Secondary = value; break;
+            case PaletteProperty.Background: palette.Background = value; break;
+            case PaletteProperty.Surface: palette.Surface = value; break;
+            case PaletteProperty.Appbar: palette.AppbarBackground = value; break;
+            case PaletteProperty.TextPrimary: palette.TextPrimary = value; break;
+            case PaletteProperty.TextSecondary: palette.TextSecondary = value; break;
+            case PaletteProperty.Divider: palette.Divider = value; break;
+            case PaletteProperty.Info: palette.Info = value; break;
+            case PaletteProperty.Success: palette.Success = value; break;
+            case PaletteProperty.Warning: palette.Warning = value; break;
+            case PaletteProperty.Error: palette.Error = value; break;
+        }
+
+        await NotifyThemeChanged();
+    }
+
+    private async Task UpdateFontFamily(string? value)
+    {
+        var fontFamilies = (value ?? FontFamilies[0].Value)
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        Theme.Typography.Default.FontFamily = fontFamilies;
+        await NotifyThemeChanged();
+    }
+
+    private async Task UpdateRadius(int value)
+    {
+        Theme.LayoutProperties.DefaultBorderRadius = $"{value}px";
+        await NotifyThemeChanged();
+    }
+
+    private Task NotifyThemeChanged() => ThemeChanged.InvokeAsync(Theme);
+    private Task Reset() => ResetRequested.InvokeAsync();
+
+    private sealed record FontFamilyOption(string Label, string Value);
+
+    private enum PaletteProperty
+    {
+        Primary,
+        Secondary,
+        Background,
+        Surface,
+        Appbar,
+        TextPrimary,
+        TextSecondary,
+        Divider,
+        Info,
+        Success,
+        Warning,
+        Error
+    }
+}

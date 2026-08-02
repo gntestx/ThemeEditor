@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.0" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="9.4.0" />
+    <ProjectReference Include="../ThemeEditor.Components/ThemeEditor.Components.csproj" />
+  </ItemGroup>
+</Project>

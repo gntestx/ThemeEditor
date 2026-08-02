@@ -1,0 +1,126 @@
+name: Deploy every branch to GitHub Pages
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages-all-branches
+  cancel-in-progress: false
+
+jobs:
+  build-and-stage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source branch
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore ThemeEditor.slnx
+
+      - name: Publish
+        run: dotnet publish src/ThemeEditor.Demo/ThemeEditor.Demo.csproj -c Release -o publish
+
+      - name: Calculate branch URL
+        id: branch
+        shell: bash
+        run: |
+          slug="$(printf '%s' "${GITHUB_REF_NAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's#[/_]+#-#g; s#[^a-z0-9.-]+#-#g; s#^-+|-+$##g')"
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            echo "destination=." >> "$GITHUB_OUTPUT"
+            echo "base=/ThemeEditor/" >> "$GITHUB_OUTPUT"
+          else
+            echo "destination=${slug}" >> "$GITHUB_OUTPUT"
+            echo "base=/ThemeEditor/${slug}/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prepare Blazor output
+        shell: bash
+        run: |
+          site="publish/wwwroot"
+          sed -i "s#<base href=\"/\" />#<base href=\"${{ steps.branch.outputs.base }}\" />#" "$site/index.html"
+          cp "$site/index.html" "$site/404.html"
+          touch "$site/.nojekyll"
+
+      - name: Update shared Pages branch
+        env:
+          DESTINATION: ${{ steps.branch.outputs.destination }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          worktree="$(mktemp -d)"
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            git fetch origin gh-pages
+            git worktree add "$worktree" origin/gh-pages
+          else
+            git worktree add --detach "$worktree"
+            (
+              cd "$worktree"
+              git checkout --orphan gh-pages
+              git rm -rf . >/dev/null 2>&1 || true
+            )
+          fi
+
+          if [ "$DESTINATION" = "." ]; then
+            for entry in "$worktree"/* "$worktree"/.[!.]* "$worktree"/..?*; do
+              [ -e "$entry" ] || continue
+              [ "$(basename "$entry")" = ".git" ] && continue
+              if [ -d "$entry" ] && [ -f "$entry/.branch-deployment" ]; then
+                continue
+              fi
+              rm -rf "$entry"
+            done
+            cp -a publish/wwwroot/. "$worktree/"
+          else
+            rm -rf "$worktree/$DESTINATION"
+            mkdir -p "$worktree/$DESTINATION"
+            cp -a publish/wwwroot/. "$worktree/$DESTINATION/"
+            touch "$worktree/$DESTINATION/.branch-deployment"
+          fi
+
+          touch "$worktree/.nojekyll"
+          cd "$worktree"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No Pages changes to commit."
+          else
+            git commit -m "Deploy ${GITHUB_REF_NAME} to GitHub Pages"
+            git push origin HEAD:gh-pages
+          fi
+
+          cd "$GITHUB_WORKSPACE"
+          mkdir -p pages-artifact
+          cp -a "$worktree/." pages-artifact/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete Pages site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-artifact
+
+  deploy:
+    needs: build-and-stage
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,114 @@
+@using System.Globalization
+
+<MudPaper Outlined="true" Class="pa-3">
+    <MudText Typo="Typo.subtitle2" GutterBottom="true">@Label</MudText>
+
+    <MudGrid Spacing="2">
+        <MudItem xs="12">
+            <MudText Typo="Typo.caption">Font size: @FontSize.ToString("0.00", CultureInfo.InvariantCulture) rem</MudText>
+            <MudSlider T="double"
+                       Min="0.5"
+                       Max="8"
+                       Step="0.05"
+                       Value="FontSize"
+                       ValueChanged="UpdateFontSize"
+                       Color="Color.Primary" />
+        </MudItem>
+
+        <MudItem xs="12" sm="4">
+            <MudSelect T="string"
+                       Label="Font weight"
+                       Value="@FontWeight"
+                       ValueChanged="UpdateFontWeight"
+                       Variant="Variant.Outlined"
+                       Margin="Margin.Dense">
+                @foreach (var weight in FontWeights)
+                {
+                    <MudSelectItem T="string" Value="@weight">@weight</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+
+        <MudItem xs="12" sm="4">
+            <MudText Typo="Typo.caption">Line height: @LineHeight.ToString("0.00", CultureInfo.InvariantCulture)</MudText>
+            <MudSlider T="double"
+                       Min="0.8"
+                       Max="3"
+                       Step="0.05"
+                       Value="LineHeight"
+                       ValueChanged="UpdateLineHeight"
+                       Color="Color.Primary" />
+        </MudItem>
+
+        <MudItem xs="12" sm="4">
+            <MudText Typo="Typo.caption">Letter spacing: @LetterSpacing.ToString("0.000", CultureInfo.InvariantCulture) em</MudText>
+            <MudSlider T="double"
+                       Min="-0.1"
+                       Max="0.3"
+                       Step="0.005"
+                       Value="LetterSpacing"
+                       ValueChanged="UpdateLetterSpacing"
+                       Color="Color.Primary" />
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@code {
+    private static readonly string[] FontWeights =
+    [
+        "100", "200", "300", "400", "500", "600", "700", "800", "900"
+    ];
+
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public BaseTypography Style { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback Changed { get; set; }
+
+    private double FontSize => ParseCssNumber(Style.FontSize, 1.0);
+    private string FontWeight => Style.FontWeight ?? "400";
+    private double LineHeight => ParseCssNumber(Style.LineHeight, 1.5);
+    private double LetterSpacing => ParseCssNumber(Style.LetterSpacing, 0.0);
+
+    private async Task UpdateFontSize(double value)
+    {
+        Style.FontSize = $"{value.ToString("0.00", CultureInfo.InvariantCulture)}rem";
+        await Changed.InvokeAsync();
+    }
+
+    private async Task UpdateFontWeight(string? value)
+    {
+        Style.FontWeight = value ?? "400";
+        await Changed.InvokeAsync();
+    }
+
+    private async Task UpdateLineHeight(double value)
+    {
+        Style.LineHeight = value.ToString("0.00", CultureInfo.InvariantCulture);
+        await Changed.InvokeAsync();
+    }
+
+    private async Task UpdateLetterSpacing(double value)
+    {
+        Style.LetterSpacing = $"{value.ToString("0.000", CultureInfo.InvariantCulture)}em";
+        await Changed.InvokeAsync();
+    }
+
+    private static double ParseCssNumber(string? value, double fallback)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return fallback;
+
+        var normalized = value
+            .Replace("rem", string.Empty, StringComparison.OrdinalIgnoreCase)
+            .Replace("em", string.Empty, StringComparison.OrdinalIgnoreCase)
+            .Trim();
+
+        return double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed)
+            ? parsed
+            : fallback;
+    }
+}
