@@ -62,10 +62,10 @@
                 <MudText Typo="Typo.h5" GutterBottom="true">Form controls</MudText>
                 <MudGrid>
                     <MudItem xs="12" sm="6">
-                        <MudTextField Label="Project name" Value="ThemeEditor" Variant="Variant.Outlined" />
+                        <MudTextField Label="Project name" Value="@("ThemeEditor")" Variant="Variant.Outlined" />
                     </MudItem>
                     <MudItem xs="12" sm="6">
-                        <MudSelect T="string" Label="Environment" Value="Development" Variant="Variant.Outlined">
+                        <MudSelect T="string" Label="Environment" Value="@("Development")" Variant="Variant.Outlined">
                             <MudSelectItem Value="@("Development")">Development</MudSelectItem>
                             <MudSelectItem Value="@("Staging")">Staging</MudSelectItem>
                             <MudSelectItem Value="@("Production")">Production</MudSelectItem>
