@@ -1,0 +1,83 @@
+@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="_theme" IsDarkMode="_darkMode" @key="_themeVersion" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0" Color="Color.Surface">
+        <MudIcon Icon="@Icons.Material.Filled.Palette" Color="Color.Primary" Size="Size.Large" />
+        <MudText Typo="Typo.h6" Class="ml-3">MudTheme Studio</MudText>
+        <MudSpacer />
+        <MudChip T="string" Variant="Variant.Outlined" Color="Color.Primary">Live preview</MudChip>
+    </MudAppBar>
+
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="py-8">
+            <CascadingValue Value="_theme">
+                <CascadingValue Value="_darkMode" Name="DarkMode">
+                    <CascadingValue Value="(Action<MudTheme>)ApplyTheme" Name="ApplyTheme">
+                        <CascadingValue Value="(Action<bool>)ApplyDarkMode" Name="ApplyDarkMode">
+                            <CascadingValue Value="(Action)ResetTheme" Name="ResetTheme">
+                                @Body
+                            </CascadingValue>
+                        </CascadingValue>
+                    </CascadingValue>
+                </CascadingValue>
+            </CascadingValue>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private MudTheme _theme = CreateTheme();
+    private bool _darkMode;
+    private int _themeVersion;
+
+    private void ApplyTheme(MudTheme theme)
+    {
+        _theme = theme;
+        _themeVersion++;
+        StateHasChanged();
+    }
+
+    private void ApplyDarkMode(bool value)
+    {
+        _darkMode = value;
+        _themeVersion++;
+        StateHasChanged();
+    }
+
+    private void ResetTheme()
+    {
+        _theme = CreateTheme();
+        _darkMode = false;
+        _themeVersion++;
+        StateHasChanged();
+    }
+
+    private static MudTheme CreateTheme() => new()
+    {
+        PaletteLight = new PaletteLight
+        {
+            Primary = "#6750A4",
+            Secondary = "#006A6A",
+            Background = "#F7F2FA",
+            Surface = "#FFFBFE",
+            AppbarBackground = "#FFFBFE"
+        },
+        PaletteDark = new PaletteDark
+        {
+            Primary = "#D0BCFF",
+            Secondary = "#4FD8D8",
+            Background = "#1C1B1F",
+            Surface = "#25232A",
+            AppbarBackground = "#25232A"
+        },
+        LayoutProperties = new LayoutProperties
+        {
+            DefaultBorderRadius = "12px"
+        }
+    };
+}
