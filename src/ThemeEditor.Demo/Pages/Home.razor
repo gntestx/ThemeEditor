@@ -16,18 +16,45 @@
             <section>
                 <MudText Typo="Typo.h2" GutterBottom="true">Design a MudTheme visually</MudText>
                 <MudText Typo="Typo.body1" Color="Color.Secondary">
-                    Edit colors and shape in the panel. Every example below uses the active theme.
+                    Edit the theme in the panel and inspect the live MudBlazor component showcase below.
                 </MudText>
             </section>
 
             <MudPaper Class="pa-6" Elevation="1">
-                <MudText Typo="Typo.h5" GutterBottom="true">Buttons and status</MudText>
-                <MudStack Row="true" Spacing="2" Class="flex-wrap">
+                <MudText Typo="Typo.h5" GutterBottom="true">Typography scale</MudText>
+                <MudText Typo="Typo.h1">Heading 1</MudText>
+                <MudText Typo="Typo.h2">Heading 2</MudText>
+                <MudText Typo="Typo.h3">Heading 3</MudText>
+                <MudText Typo="Typo.h4">Heading 4</MudText>
+                <MudText Typo="Typo.h5">Heading 5</MudText>
+                <MudText Typo="Typo.h6">Heading 6</MudText>
+                <MudText Typo="Typo.subtitle1">Subtitle 1</MudText>
+                <MudText Typo="Typo.subtitle2">Subtitle 2</MudText>
+                <MudText Typo="Typo.body1">Body 1 demonstrates the main reading style.</MudText>
+                <MudText Typo="Typo.body2">Body 2 demonstrates secondary content.</MudText>
+                <MudText Typo="Typo.caption">Caption text</MudText>
+                <MudText Typo="Typo.overline">Overline text</MudText>
+            </MudPaper>
+
+            <MudPaper Class="pa-6" Elevation="1">
+                <MudText Typo="Typo.h5" GutterBottom="true">Buttons, icons and status</MudText>
+                <MudStack Row="true" Spacing="2" Class="flex-wrap mb-4">
                     <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
-                    <MudButton Variant="Variant.Outlined" Color="Color.Secondary">Secondary</MudButton>
+                    <MudButton Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton>
+                    <MudButton Variant="Variant.Filled" Color="Color.Tertiary">Tertiary</MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Info">Info</MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Success">Success</MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Warning">Warning</MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Error">Error</MudButton>
                     <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Add">Add item</MudButton>
+                </MudStack>
+                <MudStack Row="true" Spacing="2" Class="flex-wrap">
+                    <MudIconButton Icon="@Icons.Material.Filled.Home" Color="Color.Primary" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Secondary" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
                     <MudChip T="string" Color="Color.Success">Published</MudChip>
                     <MudChip T="string" Color="Color.Warning" Variant="Variant.Outlined">Draft</MudChip>
+                    <MudChip T="string" Color="Color.Error" Variant="Variant.Outlined">Blocked</MudChip>
                 </MudStack>
             </MudPaper>
 
@@ -37,6 +64,9 @@
                     <MudItem xs="12" sm="6">
                         <MudCard>
                             <MudCardHeader>
+                                <CardHeaderAvatar>
+                                    <MudAvatar Color="@card.Color">@card.Initials</MudAvatar>
+                                </CardHeaderAvatar>
                                 <CardHeaderContent>
                                     <MudText Typo="Typo.h6">@card.Title</MudText>
                                     <MudText Typo="Typo.caption">@card.Meta</MudText>
@@ -60,9 +90,9 @@
 
             <MudPaper Class="pa-6" Elevation="1">
                 <MudText Typo="Typo.h5" GutterBottom="true">Form controls</MudText>
-                <MudGrid>
+                <MudGrid Spacing="3">
                     <MudItem xs="12" sm="6">
-                        <MudTextField Label="Project name" Value="@("ThemeEditor")" Variant="Variant.Outlined" />
+                        <MudTextField T="string" Label="Project name" Value="@("ThemeEditor")" Variant="Variant.Outlined" />
                     </MudItem>
                     <MudItem xs="12" sm="6">
                         <MudSelect T="string" Label="Environment" Value="@("Development")" Variant="Variant.Outlined">
@@ -71,25 +101,82 @@
                             <MudSelectItem Value="@("Production")">Production</MudSelectItem>
                         </MudSelect>
                     </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudDatePicker Label="Release date" Variant="Variant.Outlined" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudTimePicker Label="Release time" Variant="Variant.Outlined" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudCheckBox T="bool" Label="Enable notifications" Value="true" Color="Color.Primary" />
+                        <MudSwitch T="bool" Label="Automatic publishing" Value="true" Color="Color.Secondary" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudRadioGroup T="string" Value="@("Public")">
+                            <MudRadio T="string" Value="@("Public")" Color="Color.Primary">Public</MudRadio>
+                            <MudRadio T="string" Value="@("Private")" Color="Color.Primary">Private</MudRadio>
+                        </MudRadioGroup>
+                    </MudItem>
                     <MudItem xs="12">
-                        <MudAlert Severity="Severity.Info" Variant="Variant.Outlined">
-                            The editor component is a separate Razor class library and can be reused in other apps.
-                        </MudAlert>
+                        <MudText Typo="Typo.body2">Completion: @_completion%</MudText>
+                        <MudSlider T="int" Min="0" Max="100" Step="5" Value="_completion" ValueChanged="value => _completion = value" Color="Color.Primary" />
                     </MudItem>
                 </MudGrid>
             </MudPaper>
 
             <MudPaper Class="pa-6" Elevation="1">
+                <MudText Typo="Typo.h5" GutterBottom="true">Feedback and progress</MudText>
+                <MudStack Spacing="2">
+                    <MudAlert Severity="Severity.Info" Variant="Variant.Outlined">Informational message using the active info color.</MudAlert>
+                    <MudAlert Severity="Severity.Success" Variant="Variant.Filled">The operation completed successfully.</MudAlert>
+                    <MudAlert Severity="Severity.Warning" Variant="Variant.Outlined">Review the theme contrast before publishing.</MudAlert>
+                    <MudAlert Severity="Severity.Error" Variant="Variant.Text">A destructive action requires confirmation.</MudAlert>
+                    <MudProgressLinear Color="Color.Primary" Value="72" Rounded="true" />
+                    <MudStack Row="true" Spacing="4" AlignItems="AlignItems.Center">
+                        <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Medium" />
+                        <MudProgressCircular Color="Color.Success" Value="68" Size="Size.Medium" />
+                    </MudStack>
+                </MudStack>
+            </MudPaper>
+
+            <MudPaper Class="pa-6" Elevation="1">
+                <MudText Typo="Typo.h5" GutterBottom="true">Tabs and navigation</MudText>
+                <MudTabs Elevation="1" Rounded="true">
+                    <MudTabPanel Text="Overview" Icon="@Icons.Material.Filled.Dashboard">
+                        <MudPaper Class="pa-4" Elevation="0">
+                            <MudText>Overview content demonstrates surface, text and divider colors.</MudText>
+                        </MudPaper>
+                    </MudTabPanel>
+                    <MudTabPanel Text="Activity" Icon="@Icons.Material.Filled.Timeline">
+                        <MudPaper Class="pa-4" Elevation="0">
+                            <MudList T="string">
+                                <MudListItem T="string" Icon="@Icons.Material.Filled.CheckCircle">Theme updated</MudListItem>
+                                <MudListItem T="string" Icon="@Icons.Material.Filled.CloudDone">Preview published</MudListItem>
+                                <MudListItem T="string" Icon="@Icons.Material.Filled.Person">Reviewer invited</MudListItem>
+                            </MudList>
+                        </MudPaper>
+                    </MudTabPanel>
+                    <MudTabPanel Text="Settings" Icon="@Icons.Material.Filled.Settings">
+                        <MudPaper Class="pa-4" Elevation="0">
+                            <MudText>Settings content follows the active typography and palette.</MudText>
+                        </MudPaper>
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+
+            <MudPaper Class="pa-6" Elevation="1">
                 <MudText Typo="Typo.h5" GutterBottom="true">Table</MudText>
-                <MudTable Items="Rows" Hover="true" Striped="true">
+                <MudTable Items="Rows" Hover="true" Striped="true" Dense="true">
                     <HeaderContent>
                         <MudTh>Name</MudTh>
                         <MudTh>Status</MudTh>
+                        <MudTh>Owner</MudTh>
                         <MudTh Class="text-right">Score</MudTh>
                     </HeaderContent>
                     <RowTemplate>
                         <MudTd DataLabel="Name">@context.Name</MudTd>
-                        <MudTd DataLabel="Status">@context.Status</MudTd>
+                        <MudTd DataLabel="Status"><MudChip T="string" Size="Size.Small" Color="@context.Color">@context.Status</MudChip></MudTd>
+                        <MudTd DataLabel="Owner">@context.Owner</MudTd>
                         <MudTd DataLabel="Score" Class="text-right">@context.Score</MudTd>
                     </RowTemplate>
                 </MudTable>
@@ -114,23 +201,28 @@
     [CascadingParameter(Name = "ResetTheme")]
     private Action ResetTheme { get; set; } = () => { };
 
+    private int _completion = 65;
+
     private readonly CardData[] Cards =
     [
-        new("Product surface", "Updated today", "Cards, spacing, typography and actions adapt to the theme."),
-        new("Dashboard module", "3 active users", "Use the same theme object throughout a complete application.")
+        new("Product surface", "Updated today", "Cards, spacing, typography and actions adapt to the active theme.", "PS", Color.Primary),
+        new("Dashboard module", "3 active users", "Use the same theme object throughout a complete application.", "DM", Color.Secondary),
+        new("Design system", "12 components", "Validate semantic colors, typography and visual hierarchy together.", "DS", Color.Tertiary),
+        new("Release preview", "Ready to publish", "Inspect light and dark appearance before releasing a theme.", "RP", Color.Success)
     ];
 
     private readonly RowData[] Rows =
     [
-        new("Accessibility", "Ready", 96),
-        new("Visual consistency", "Review", 88),
-        new("Component coverage", "Ready", 92)
+        new("Accessibility", "Ready", "Anna", 96, Color.Success),
+        new("Visual consistency", "Review", "David", 88, Color.Warning),
+        new("Component coverage", "Ready", "Maria", 92, Color.Success),
+        new("Dark mode", "Blocked", "Oskar", 74, Color.Error)
     ];
 
     private void OnThemeChanged(MudTheme value) => ApplyTheme(value);
     private void OnDarkModeChanged(bool value) => ApplyDarkMode(value);
     private void OnReset() => ResetTheme();
 
-    private sealed record CardData(string Title, string Meta, string Description);
-    private sealed record RowData(string Name, string Status, int Score);
+    private sealed record CardData(string Title, string Meta, string Description, string Initials, Color Color);
+    private sealed record RowData(string Name, string Status, string Owner, int Score, Color Color);
 }
