@@ -1,0 +1,142 @@
+<MudPaper Class="theme-editor pa-5" Elevation="1">
+    <MudStack Spacing="3">
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+            <div>
+                <MudText Typo="Typo.h5">Theme editor</MudText>
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+                    Changes are applied to the active MudTheme immediately.
+                </MudText>
+            </div>
+            <MudSwitch T="bool"
+                       Value="IsDarkMode"
+                       ValueChanged="ToggleDarkMode"
+                       Color="Color.Primary"
+                       Label="Dark mode" />
+        </MudStack>
+
+        <MudDivider />
+
+        <MudText Typo="Typo.subtitle1">Palette</MudText>
+        <div class="color-grid">
+            @ColorField("Primary", Theme.PaletteLight.Primary.ToString(), value => UpdatePalette("primary", value))
+            @ColorField("Secondary", Theme.PaletteLight.Secondary.ToString(), value => UpdatePalette("secondary", value))
+            @ColorField("Background", Theme.PaletteLight.Background.ToString(), value => UpdatePalette("background", value))
+            @ColorField("Surface", Theme.PaletteLight.Surface.ToString(), value => UpdatePalette("surface", value))
+            @ColorField("Dark primary", Theme.PaletteDark.Primary.ToString(), value => UpdateDarkPalette("primary", value))
+            @ColorField("Dark surface", Theme.PaletteDark.Surface.ToString(), value => UpdateDarkPalette("surface", value))
+        </div>
+
+        <MudDivider />
+
+        <MudText Typo="Typo.subtitle1">Shape</MudText>
+        <MudText Typo="Typo.body2">Default border radius: @BorderRadius px</MudText>
+        <MudSlider T="int"
+                   Min="0"
+                   Max="32"
+                   Step="1"
+                   Value="BorderRadius"
+                   ValueChanged="UpdateRadius"
+                   Color="Color.Primary" />
+
+        <MudStack Row="true" Justify="Justify.FlexEnd">
+            <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.RestartAlt" OnClick="Reset">
+                Reset theme
+            </MudButton>
+        </MudStack>
+    </MudStack>
+</MudPaper>
+
+@code {
+    [Parameter, EditorRequired]
+    public MudTheme Theme { get; set; } = new();
+
+    [Parameter]
+    public bool IsDarkMode { get; set; }
+
+    [Parameter]
+    public EventCallback<MudTheme> ThemeChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsDarkModeChanged { get; set; }
+
+    [Parameter]
+    public EventCallback ResetRequested { get; set; }
+
+    private int BorderRadius =>
+        int.TryParse(Theme.LayoutProperties.DefaultBorderRadius.Replace("px", string.Empty), out var value)
+            ? value
+            : 4;
+
+    private RenderFragment ColorField(string label, string value, Action<string> changed) => builder =>
+    {
+        var sequence = 0;
+        builder.OpenElement(sequence++, "label");
+        builder.AddAttribute(sequence++, "class", "color-field");
+
+        builder.OpenElement(sequence++, "input");
+        builder.AddAttribute(sequence++, "type", "color");
+        builder.AddAttribute(sequence++, "value", NormalizeColor(value));
+        builder.AddAttribute(sequence++, "aria-label", label);
+        builder.AddAttribute(sequence++, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(
+            this,
+            args => changed(args.Value?.ToString() ?? "#000000")));
+        builder.CloseElement();
+
+        builder.OpenElement(sequence++, "span");
+        builder.AddContent(sequence++, label);
+        builder.CloseElement();
+
+        builder.CloseElement();
+    };
+
+    private Task ToggleDarkMode(bool value) => IsDarkModeChanged.InvokeAsync(value);
+
+    private async Task UpdatePalette(string property, string value)
+    {
+        switch (property)
+        {
+            case "primary":
+                Theme.PaletteLight.Primary = value;
+                break;
+            case "secondary":
+                Theme.PaletteLight.Secondary = value;
+                break;
+            case "background":
+                Theme.PaletteLight.Background = value;
+                break;
+            case "surface":
+                Theme.PaletteLight.Surface = value;
+                break;
+        }
+
+        await ThemeChanged.InvokeAsync(Theme);
+    }
+
+    private async Task UpdateDarkPalette(string property, string value)
+    {
+        if (property == "primary")
+            Theme.PaletteDark.Primary = value;
+        else if (property == "surface")
+            Theme.PaletteDark.Surface = value;
+
+        await ThemeChanged.InvokeAsync(Theme);
+    }
+
+    private async Task UpdateRadius(int value)
+    {
+        Theme.LayoutProperties.DefaultBorderRadius = $"{value}px";
+        await ThemeChanged.InvokeAsync(Theme);
+    }
+
+    private Task Reset() => ResetRequested.InvokeAsync();
+
+    private static string NormalizeColor(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "#000000";
+
+        return value.StartsWith('#') && value.Length >= 7
+            ? value[..7]
+            : "#000000";
+    }
+}
