@@ -1,0 +1,79 @@
+<MudPaper Outlined="true" Class="pa-3">
+    <MudText Typo="Typo.subtitle2" GutterBottom="true">@Label</MudText>
+    <MudGrid Spacing="2">
+        <MudItem xs="12" sm="6">
+            <MudTextField T="string"
+                          Label="Font size"
+                          Value="@(Style.FontSize ?? string.Empty)"
+                          ValueChanged="value => Update(value, TypographyProperty.FontSize)"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense" />
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudTextField T="string"
+                          Label="Font weight"
+                          Value="@(Style.FontWeight ?? string.Empty)"
+                          ValueChanged="value => Update(value, TypographyProperty.FontWeight)"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense" />
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudTextField T="string"
+                          Label="Line height"
+                          Value="@(Style.LineHeight ?? string.Empty)"
+                          ValueChanged="value => Update(value, TypographyProperty.LineHeight)"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense" />
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudTextField T="string"
+                          Label="Letter spacing"
+                          Value="@(Style.LetterSpacing ?? string.Empty)"
+                          ValueChanged="value => Update(value, TypographyProperty.LetterSpacing)"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense" />
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public BaseTypography Style { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback Changed { get; set; }
+
+    private async Task Update(string? value, TypographyProperty property)
+    {
+        var safeValue = value ?? string.Empty;
+
+        switch (property)
+        {
+            case TypographyProperty.FontSize:
+                Style.FontSize = safeValue;
+                break;
+            case TypographyProperty.FontWeight:
+                Style.FontWeight = safeValue;
+                break;
+            case TypographyProperty.LineHeight:
+                Style.LineHeight = safeValue;
+                break;
+            case TypographyProperty.LetterSpacing:
+                Style.LetterSpacing = safeValue;
+                break;
+        }
+
+        await Changed.InvokeAsync();
+    }
+
+    private enum TypographyProperty
+    {
+        FontSize,
+        FontWeight,
+        LineHeight,
+        LetterSpacing
+    }
+}
