@@ -49,13 +49,18 @@
         <details open>
             <summary>Typography</summary>
             <MudStack Spacing="2" Class="section-content">
-                <MudTextField T="string"
-                              Label="Font family"
-                              Value="@FontFamily"
-                              ValueChanged="UpdateFontFamily"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense"
-                              HelperText="Comma-separated CSS font families" />
+                <MudSelect T="string"
+                           Label="Font family"
+                           Value="@FontFamily"
+                           ValueChanged="UpdateFontFamily"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense">
+                    @foreach (var font in FontFamilies)
+                    {
+                        <MudSelectItem T="string" Value="@font.Value">@font.Label</MudSelectItem>
+                    }
+                </MudSelect>
+
                 <TypographyStyleInput Label="H1" Style="Theme.Typography.H1" Changed="NotifyThemeChanged" />
                 <TypographyStyleInput Label="H2" Style="Theme.Typography.H2" Changed="NotifyThemeChanged" />
                 <TypographyStyleInput Label="H3" Style="Theme.Typography.H3" Changed="NotifyThemeChanged" />
@@ -89,6 +94,15 @@
 </MudPaper>
 
 @code {
+    private static readonly FontFamilyOption[] FontFamilies =
+    [
+        new("MudBlazor default", "Roboto, Helvetica, Arial, sans-serif"),
+        new("System UI", "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"),
+        new("Arial", "Arial, Helvetica, sans-serif"),
+        new("Georgia", "Georgia, Times New Roman, serif"),
+        new("Monospace", "Consolas, Monaco, monospace")
+    ];
+
     [Parameter, EditorRequired]
     public MudTheme Theme { get; set; } = new();
 
@@ -138,11 +152,9 @@
 
     private async Task UpdateFontFamily(string? value)
     {
-        var fontFamilies = (value ?? string.Empty)
+        var fontFamilies = (value ?? FontFamilies[0].Value)
             .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-        Theme.Typography.Default.FontFamily = fontFamilies.Length == 0
-            ? new MudTheme().Typography.Default.FontFamily
-            : fontFamilies;
+        Theme.Typography.Default.FontFamily = fontFamilies;
         await NotifyThemeChanged();
     }
 
@@ -154,6 +166,8 @@
 
     private Task NotifyThemeChanged() => ThemeChanged.InvokeAsync(Theme);
     private Task Reset() => ResetRequested.InvokeAsync();
+
+    private sealed record FontFamilyOption(string Label, string Value);
 
     private enum PaletteProperty
     {
