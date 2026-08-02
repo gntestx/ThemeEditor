@@ -1,0 +1,33 @@
+/* _content/ThemeEditor.Components/ThemeEditorPanel.razor.rz.scp.css */
+.theme-editor[b-o5mkspzjwz] {
+    position: sticky;
+    top: 88px;
+}
+
+.color-grid[b-o5mkspzjwz] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.color-field[b-o5mkspzjwz] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.color-field input[b-o5mkspzjwz] {
+    width: 42px;
+    height: 34px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+@media (max-width: 960px) {
+    .theme-editor[b-o5mkspzjwz] {
+        position: static;
+    }
+}
