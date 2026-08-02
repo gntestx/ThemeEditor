@@ -1,0 +1,22 @@
+<MudColorPicker Label="@Label"
+                Value="Value"
+                ValueChanged="OnValueChanged"
+                Variant="Variant.Outlined"
+                Margin="Margin.Dense"
+                ColorPickerMode="ColorPickerMode.HEX"
+                ShowAlpha="true"
+                ShowToolbar="false"
+                FullWidth="true" />
+
+@code {
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter]
+    public MudColor? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<MudColor?> ValueChanged { get; set; }
+
+    private Task OnValueChanged(MudColor? value) => ValueChanged.InvokeAsync(value);
+}
