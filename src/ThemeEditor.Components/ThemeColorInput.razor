@@ -1,11 +1,23 @@
-<MudColorPicker Label="@Label"
-                Value="Value"
-                ValueChanged="OnValueChanged"
-                Variant="Variant.Outlined"
-                Margin="Margin.Dense"
-                ColorPickerMode="ColorPickerMode.HEX"
-                ShowAlpha="true"
-                ShowToolbar="false" />
+<MudPaper Outlined="true" Class="pa-3">
+    <MudStack Spacing="2">
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+            <div class="color-swatch" style="background-color: @ColorValue"></div>
+            <div>
+                <MudText Typo="Typo.subtitle2">@Label</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">@ColorValue</MudText>
+            </div>
+        </MudStack>
+
+        <MudColorPicker Label="@Label"
+                        Value="Value"
+                        ValueChanged="OnValueChanged"
+                        Variant="Variant.Outlined"
+                        Margin="Margin.Dense"
+                        ColorPickerMode="ColorPickerMode.HEX"
+                        ShowAlpha="true"
+                        ShowToolbar="false" />
+    </MudStack>
+</MudPaper>
 
 @code {
     [Parameter, EditorRequired]
@@ -16,6 +28,8 @@
 
     [Parameter]
     public EventCallback<MudColor?> ValueChanged { get; set; }
+
+    private string ColorValue => Value?.ToString() ?? "Not set";
 
     private Task OnValueChanged(MudColor? value) => ValueChanged.InvokeAsync(value);
 }
