@@ -67,7 +67,7 @@
             ? value
             : 4;
 
-    private RenderFragment ColorField(string label, string value, Action<string> changed) => builder =>
+    private RenderFragment ColorField(string label, string value, Func<string, Task> changed) => builder =>
     {
         var sequence = 0;
         builder.OpenElement(sequence++, "label");
@@ -79,7 +79,7 @@
         builder.AddAttribute(sequence++, "aria-label", label);
         builder.AddAttribute(sequence++, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(
             this,
-            args => changed(args.Value?.ToString() ?? "#000000")));
+            async args => await changed(args.Value?.ToString() ?? "#000000")));
         builder.CloseElement();
 
         builder.OpenElement(sequence++, "span");
