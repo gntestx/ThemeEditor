@@ -19,74 +19,64 @@
         <details open>
             <summary>Light palette</summary>
             <div class="color-grid section-content">
-                @ColorField("Primary", Theme.PaletteLight.Primary.ToString(), value => UpdatePalette(false, "primary", value))
-                @ColorField("Secondary", Theme.PaletteLight.Secondary.ToString(), value => UpdatePalette(false, "secondary", value))
-                @ColorField("Background", Theme.PaletteLight.Background.ToString(), value => UpdatePalette(false, "background", value))
-                @ColorField("Surface", Theme.PaletteLight.Surface.ToString(), value => UpdatePalette(false, "surface", value))
-                @ColorField("App bar", Theme.PaletteLight.AppbarBackground.ToString(), value => UpdatePalette(false, "appbar", value))
-                @ColorField("Primary text", Theme.PaletteLight.TextPrimary.ToString(), value => UpdatePalette(false, "text-primary", value))
-                @ColorField("Secondary text", Theme.PaletteLight.TextSecondary.ToString(), value => UpdatePalette(false, "text-secondary", value))
-                @ColorField("Divider", Theme.PaletteLight.Divider.ToString(), value => UpdatePalette(false, "divider", value))
-                @ColorField("Info", Theme.PaletteLight.Info.ToString(), value => UpdatePalette(false, "info", value))
-                @ColorField("Success", Theme.PaletteLight.Success.ToString(), value => UpdatePalette(false, "success", value))
-                @ColorField("Warning", Theme.PaletteLight.Warning.ToString(), value => UpdatePalette(false, "warning", value))
-                @ColorField("Error", Theme.PaletteLight.Error.ToString(), value => UpdatePalette(false, "error", value))
+                <ThemeColorInput Label="Primary" Value="Theme.PaletteLight.Primary" ValueChanged="value => UpdatePalette(false, "primary", value)" />
+                <ThemeColorInput Label="Secondary" Value="Theme.PaletteLight.Secondary" ValueChanged="value => UpdatePalette(false, "secondary", value)" />
+                <ThemeColorInput Label="Background" Value="Theme.PaletteLight.Background" ValueChanged="value => UpdatePalette(false, "background", value)" />
+                <ThemeColorInput Label="Surface" Value="Theme.PaletteLight.Surface" ValueChanged="value => UpdatePalette(false, "surface", value)" />
+                <ThemeColorInput Label="App bar" Value="Theme.PaletteLight.AppbarBackground" ValueChanged="value => UpdatePalette(false, "appbar", value)" />
+                <ThemeColorInput Label="Primary text" Value="Theme.PaletteLight.TextPrimary" ValueChanged="value => UpdatePalette(false, "text-primary", value)" />
+                <ThemeColorInput Label="Secondary text" Value="Theme.PaletteLight.TextSecondary" ValueChanged="value => UpdatePalette(false, "text-secondary", value)" />
+                <ThemeColorInput Label="Divider" Value="Theme.PaletteLight.Divider" ValueChanged="value => UpdatePalette(false, "divider", value)" />
+                <ThemeColorInput Label="Info" Value="Theme.PaletteLight.Info" ValueChanged="value => UpdatePalette(false, "info", value)" />
+                <ThemeColorInput Label="Success" Value="Theme.PaletteLight.Success" ValueChanged="value => UpdatePalette(false, "success", value)" />
+                <ThemeColorInput Label="Warning" Value="Theme.PaletteLight.Warning" ValueChanged="value => UpdatePalette(false, "warning", value)" />
+                <ThemeColorInput Label="Error" Value="Theme.PaletteLight.Error" ValueChanged="value => UpdatePalette(false, "error", value)" />
             </div>
         </details>
 
         <details>
             <summary>Dark palette</summary>
             <div class="color-grid section-content">
-                @ColorField("Primary", Theme.PaletteDark.Primary.ToString(), value => UpdatePalette(true, "primary", value))
-                @ColorField("Secondary", Theme.PaletteDark.Secondary.ToString(), value => UpdatePalette(true, "secondary", value))
-                @ColorField("Background", Theme.PaletteDark.Background.ToString(), value => UpdatePalette(true, "background", value))
-                @ColorField("Surface", Theme.PaletteDark.Surface.ToString(), value => UpdatePalette(true, "surface", value))
-                @ColorField("App bar", Theme.PaletteDark.AppbarBackground.ToString(), value => UpdatePalette(true, "appbar", value))
-                @ColorField("Primary text", Theme.PaletteDark.TextPrimary.ToString(), value => UpdatePalette(true, "text-primary", value))
-                @ColorField("Secondary text", Theme.PaletteDark.TextSecondary.ToString(), value => UpdatePalette(true, "text-secondary", value))
-                @ColorField("Divider", Theme.PaletteDark.Divider.ToString(), value => UpdatePalette(true, "divider", value))
-                @ColorField("Info", Theme.PaletteDark.Info.ToString(), value => UpdatePalette(true, "info", value))
-                @ColorField("Success", Theme.PaletteDark.Success.ToString(), value => UpdatePalette(true, "success", value))
-                @ColorField("Warning", Theme.PaletteDark.Warning.ToString(), value => UpdatePalette(true, "warning", value))
-                @ColorField("Error", Theme.PaletteDark.Error.ToString(), value => UpdatePalette(true, "error", value))
+                <ThemeColorInput Label="Primary" Value="Theme.PaletteDark.Primary" ValueChanged="value => UpdatePalette(true, "primary", value)" />
+                <ThemeColorInput Label="Secondary" Value="Theme.PaletteDark.Secondary" ValueChanged="value => UpdatePalette(true, "secondary", value)" />
+                <ThemeColorInput Label="Background" Value="Theme.PaletteDark.Background" ValueChanged="value => UpdatePalette(true, "background", value)" />
+                <ThemeColorInput Label="Surface" Value="Theme.PaletteDark.Surface" ValueChanged="value => UpdatePalette(true, "surface", value)" />
+                <ThemeColorInput Label="App bar" Value="Theme.PaletteDark.AppbarBackground" ValueChanged="value => UpdatePalette(true, "appbar", value)" />
+                <ThemeColorInput Label="Primary text" Value="Theme.PaletteDark.TextPrimary" ValueChanged="value => UpdatePalette(true, "text-primary", value)" />
+                <ThemeColorInput Label="Secondary text" Value="Theme.PaletteDark.TextSecondary" ValueChanged="value => UpdatePalette(true, "text-secondary", value)" />
+                <ThemeColorInput Label="Divider" Value="Theme.PaletteDark.Divider" ValueChanged="value => UpdatePalette(true, "divider", value)" />
+                <ThemeColorInput Label="Info" Value="Theme.PaletteDark.Info" ValueChanged="value => UpdatePalette(true, "info", value)" />
+                <ThemeColorInput Label="Success" Value="Theme.PaletteDark.Success" ValueChanged="value => UpdatePalette(true, "success", value)" />
+                <ThemeColorInput Label="Warning" Value="Theme.PaletteDark.Warning" ValueChanged="value => UpdatePalette(true, "warning", value)" />
+                <ThemeColorInput Label="Error" Value="Theme.PaletteDark.Error" ValueChanged="value => UpdatePalette(true, "error", value)" />
             </div>
         </details>
 
         <details open>
             <summary>Typography</summary>
-            <div class="section-content">
-                @TextField(
-                    "Font family",
-                    string.Join(", ", Theme.Typography.Default.FontFamily ?? Array.Empty<string>()),
-                    UpdateFontFamily,
-                    "Roboto, Helvetica, Arial, sans-serif")
+            <MudStack Spacing="2" Class="section-content">
+                <MudTextField T="string"
+                              Label="Font family"
+                              Value="@FontFamily"
+                              ValueChanged="UpdateFontFamily"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              HelperText="Comma-separated CSS font families" />
 
-                <div class="typography-table" role="table" aria-label="Typography settings">
-                    <div class="typography-header" role="row">
-                        <span>Style</span>
-                        <span>Size</span>
-                        <span>Weight</span>
-                        <span>Line height</span>
-                        <span>Letter spacing</span>
-                    </div>
-                    @TypographyRow("H1", Theme.Typography.H1)
-                    @TypographyRow("H2", Theme.Typography.H2)
-                    @TypographyRow("H3", Theme.Typography.H3)
-                    @TypographyRow("H4", Theme.Typography.H4)
-                    @TypographyRow("H5", Theme.Typography.H5)
-                    @TypographyRow("H6", Theme.Typography.H6)
-                    @TypographyRow("Subtitle 1", Theme.Typography.Subtitle1)
-                    @TypographyRow("Subtitle 2", Theme.Typography.Subtitle2)
-                    @TypographyRow("Body 1", Theme.Typography.Body1)
-                    @TypographyRow("Body 2", Theme.Typography.Body2)
-                    @TypographyRow("Button", Theme.Typography.Button)
-                    @TypographyRow("Caption", Theme.Typography.Caption)
-                    @TypographyRow("Overline", Theme.Typography.Overline)
-                </div>
-                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
-                    Use CSS values such as 1rem, 400, 1.5 and 0.01em.
-                </MudText>
-            </div>
+                <TypographyStyleInput Label="H1" Style="Theme.Typography.H1" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H2" Style="Theme.Typography.H2" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H3" Style="Theme.Typography.H3" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H4" Style="Theme.Typography.H4" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H5" Style="Theme.Typography.H5" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="H6" Style="Theme.Typography.H6" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Subtitle 1" Style="Theme.Typography.Subtitle1" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Subtitle 2" Style="Theme.Typography.Subtitle2" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Body 1" Style="Theme.Typography.Body1" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Body 2" Style="Theme.Typography.Body2" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Button" Style="Theme.Typography.Button" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Caption" Style="Theme.Typography.Caption" Changed="NotifyThemeChanged" />
+                <TypographyStyleInput Label="Overline" Style="Theme.Typography.Overline" Changed="NotifyThemeChanged" />
+            </MudStack>
         </details>
 
         <details open>
@@ -127,109 +117,21 @@
     [Parameter]
     public EventCallback ResetRequested { get; set; }
 
+    private string FontFamily =>
+        string.Join(", ", Theme.Typography.Default.FontFamily ?? Array.Empty<string>());
+
     private int BorderRadius =>
         int.TryParse(Theme.LayoutProperties.DefaultBorderRadius.Replace("px", string.Empty), out var value)
             ? value
             : 4;
 
-    private RenderFragment ColorField(string label, string value, Func<string, Task> changed) => builder =>
-    {
-        var sequence = 0;
-        builder.OpenElement(sequence++, "label");
-        builder.AddAttribute(sequence++, "class", "color-field");
-
-        builder.OpenElement(sequence++, "input");
-        builder.AddAttribute(sequence++, "type", "color");
-        builder.AddAttribute(sequence++, "value", NormalizeColor(value));
-        builder.AddAttribute(sequence++, "aria-label", label);
-        builder.AddAttribute(sequence++, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(
-            this,
-            async args => await changed(args.Value?.ToString() ?? "#000000")));
-        builder.CloseElement();
-
-        builder.OpenElement(sequence++, "span");
-        builder.AddContent(sequence++, label);
-        builder.CloseElement();
-
-        builder.OpenElement(sequence++, "code");
-        builder.AddContent(sequence++, NormalizeColor(value));
-        builder.CloseElement();
-
-        builder.CloseElement();
-    };
-
-    private RenderFragment TextField(
-        string label,
-        string value,
-        Func<string, Task> changed,
-        string placeholder = "") => builder =>
-    {
-        var sequence = 0;
-        builder.OpenElement(sequence++, "label");
-        builder.AddAttribute(sequence++, "class", "text-field");
-
-        builder.OpenElement(sequence++, "span");
-        builder.AddContent(sequence++, label);
-        builder.CloseElement();
-
-        builder.OpenElement(sequence++, "input");
-        builder.AddAttribute(sequence++, "type", "text");
-        builder.AddAttribute(sequence++, "value", value);
-        builder.AddAttribute(sequence++, "placeholder", placeholder);
-        builder.AddAttribute(sequence++, "aria-label", label);
-        builder.AddAttribute(sequence++, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(
-            this,
-            async args => await changed(args.Value?.ToString() ?? string.Empty)));
-        builder.CloseElement();
-
-        builder.CloseElement();
-    };
-
-    private RenderFragment TypographyRow(string label, BaseTypography typography) => builder =>
-    {
-        var sequence = 0;
-        builder.OpenElement(sequence++, "div");
-        builder.AddAttribute(sequence++, "class", "typography-row");
-        builder.AddAttribute(sequence++, "role", "row");
-
-        builder.OpenElement(sequence++, "strong");
-        builder.AddContent(sequence++, label);
-        builder.CloseElement();
-
-        AddTypographyInput(builder, ref sequence, label, "font size", typography.FontSize ?? string.Empty,
-            value => UpdateTypography(typography, "font-size", value));
-        AddTypographyInput(builder, ref sequence, label, "font weight", typography.FontWeight ?? string.Empty,
-            value => UpdateTypography(typography, "font-weight", value));
-        AddTypographyInput(builder, ref sequence, label, "line height", typography.LineHeight ?? string.Empty,
-            value => UpdateTypography(typography, "line-height", value));
-        AddTypographyInput(builder, ref sequence, label, "letter spacing", typography.LetterSpacing ?? string.Empty,
-            value => UpdateTypography(typography, "letter-spacing", value));
-
-        builder.CloseElement();
-    };
-
-    private void AddTypographyInput(
-        RenderTreeBuilder builder,
-        ref int sequence,
-        string styleLabel,
-        string propertyLabel,
-        string value,
-        Func<string, Task> changed)
-    {
-        builder.OpenElement(sequence++, "input");
-        builder.AddAttribute(sequence++, "type", "text");
-        builder.AddAttribute(sequence++, "value", value);
-        builder.AddAttribute(sequence++, "aria-label", $"{styleLabel} {propertyLabel}");
-        builder.AddAttribute(sequence++, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(
-            this,
-            async args => await changed(args.Value?.ToString() ?? string.Empty)));
-        builder.CloseElement();
-    }
-
     private Task ToggleDarkMode(bool value) => IsDarkModeChanged.InvokeAsync(value);
 
-    private async Task UpdatePalette(bool dark, string property, string value)
+    private async Task UpdatePalette(bool dark, string property, MudColor? value)
     {
+        if (value is null)
+            return;
+
         var palette = dark ? Theme.PaletteDark : Theme.PaletteLight;
 
         switch (property)
@@ -248,49 +150,28 @@
             case "error": palette.Error = value; break;
         }
 
-        await ThemeChanged.InvokeAsync(Theme);
+        await NotifyThemeChanged();
     }
 
-    private async Task UpdateFontFamily(string value)
+    private async Task UpdateFontFamily(string? value)
     {
-        var fontFamilies = value
+        var fontFamilies = (value ?? string.Empty)
             .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
         Theme.Typography.Default.FontFamily = fontFamilies.Length == 0
-            ? ["Roboto", "Helvetica", "Arial", "sans-serif"]
+            ? new MudTheme().Typography.Default.FontFamily
             : fontFamilies;
 
-        await ThemeChanged.InvokeAsync(Theme);
-    }
-
-    private async Task UpdateTypography(BaseTypography typography, string property, string value)
-    {
-        switch (property)
-        {
-            case "font-size": typography.FontSize = value; break;
-            case "font-weight": typography.FontWeight = value; break;
-            case "line-height": typography.LineHeight = value; break;
-            case "letter-spacing": typography.LetterSpacing = value; break;
-        }
-
-        await ThemeChanged.InvokeAsync(Theme);
+        await NotifyThemeChanged();
     }
 
     private async Task UpdateRadius(int value)
     {
         Theme.LayoutProperties.DefaultBorderRadius = $"{value}px";
-        await ThemeChanged.InvokeAsync(Theme);
+        await NotifyThemeChanged();
     }
+
+    private Task NotifyThemeChanged() => ThemeChanged.InvokeAsync(Theme);
 
     private Task Reset() => ResetRequested.InvokeAsync();
-
-    private static string NormalizeColor(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            return "#000000";
-
-        return value.StartsWith('#') && value.Length >= 7
-            ? value[..7]
-            : "#000000";
-    }
 }
