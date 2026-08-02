@@ -1,32 +1,76 @@
 .theme-editor {
     position: sticky;
     top: 88px;
+    max-height: calc(100vh - 112px);
+    overflow-y: auto;
 }
 
-.color-grid {
+.color-grid,
+.text-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
 }
 
-.color-field {
+.color-field,
+.text-field {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.color-field {
     cursor: pointer;
 }
 
 .color-field input {
     width: 42px;
     height: 34px;
+    flex: 0 0 auto;
     border: 0;
     padding: 0;
     background: transparent;
     cursor: pointer;
 }
 
+.text-field {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.text-field span {
+    font-size: 0.75rem;
+    opacity: 0.75;
+}
+
+.text-field input {
+    width: 100%;
+    min-width: 0;
+    padding: 9px 10px;
+    border: 1px solid var(--mud-palette-lines-inputs);
+    border-radius: var(--mud-default-borderradius);
+    color: var(--mud-palette-text-primary);
+    background: transparent;
+    font: inherit;
+}
+
+.text-field input:focus {
+    outline: 2px solid var(--mud-palette-primary);
+    outline-offset: 1px;
+}
+
 @media (max-width: 960px) {
     .theme-editor {
         position: static;
+        max-height: none;
+        overflow-y: visible;
+    }
+}
+
+@media (max-width: 600px) {
+    .color-grid,
+    .text-grid {
+        grid-template-columns: 1fr;
     }
 }
