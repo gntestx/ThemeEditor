@@ -54,12 +54,12 @@
 
         <MudText Typo="Typo.subtitle1">Typography</MudText>
         <div class="text-grid">
-            @TextField("Font family", string.Join(", ", Theme.Typography.Default.FontFamily), UpdateFontFamily)
-            @TextField("Heading 1 size", Theme.Typography.H1.FontSize, value => UpdateTypography("h1", value))
-            @TextField("Heading 2 size", Theme.Typography.H2.FontSize, value => UpdateTypography("h2", value))
-            @TextField("Body 1 size", Theme.Typography.Body1.FontSize, value => UpdateTypography("body1", value))
-            @TextField("Body 2 size", Theme.Typography.Body2.FontSize, value => UpdateTypography("body2", value))
-            @TextField("Button size", Theme.Typography.Button.FontSize, value => UpdateTypography("button", value))
+            @TextField("Font family", string.Join(", ", Theme.Typography.Default.FontFamily ?? Array.Empty<string>()), UpdateFontFamily)
+            @TextField("Heading 1 size", Theme.Typography.H1.FontSize ?? string.Empty, value => UpdateTypography("h1", value))
+            @TextField("Heading 2 size", Theme.Typography.H2.FontSize ?? string.Empty, value => UpdateTypography("h2", value))
+            @TextField("Body 1 size", Theme.Typography.Body1.FontSize ?? string.Empty, value => UpdateTypography("body1", value))
+            @TextField("Body 2 size", Theme.Typography.Body2.FontSize ?? string.Empty, value => UpdateTypography("body2", value))
+            @TextField("Button size", Theme.Typography.Button.FontSize ?? string.Empty, value => UpdateTypography("button", value))
         </div>
 
         <MudDivider />
