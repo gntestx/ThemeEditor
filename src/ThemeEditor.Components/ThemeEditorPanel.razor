@@ -16,67 +16,96 @@
 
         <MudDivider />
 
-        <MudText Typo="Typo.subtitle1">Light palette</MudText>
-        <div class="color-grid">
-            @ColorField("Primary", Theme.PaletteLight.Primary.ToString(), value => UpdatePalette(false, "primary", value))
-            @ColorField("Secondary", Theme.PaletteLight.Secondary.ToString(), value => UpdatePalette(false, "secondary", value))
-            @ColorField("Background", Theme.PaletteLight.Background.ToString(), value => UpdatePalette(false, "background", value))
-            @ColorField("Surface", Theme.PaletteLight.Surface.ToString(), value => UpdatePalette(false, "surface", value))
-            @ColorField("App bar", Theme.PaletteLight.AppbarBackground.ToString(), value => UpdatePalette(false, "appbar", value))
-            @ColorField("Primary text", Theme.PaletteLight.TextPrimary.ToString(), value => UpdatePalette(false, "text-primary", value))
-            @ColorField("Secondary text", Theme.PaletteLight.TextSecondary.ToString(), value => UpdatePalette(false, "text-secondary", value))
-            @ColorField("Divider", Theme.PaletteLight.Divider.ToString(), value => UpdatePalette(false, "divider", value))
-            @ColorField("Info", Theme.PaletteLight.Info.ToString(), value => UpdatePalette(false, "info", value))
-            @ColorField("Success", Theme.PaletteLight.Success.ToString(), value => UpdatePalette(false, "success", value))
-            @ColorField("Warning", Theme.PaletteLight.Warning.ToString(), value => UpdatePalette(false, "warning", value))
-            @ColorField("Error", Theme.PaletteLight.Error.ToString(), value => UpdatePalette(false, "error", value))
-        </div>
+        <details open>
+            <summary>Light palette</summary>
+            <div class="color-grid section-content">
+                @ColorField("Primary", Theme.PaletteLight.Primary.ToString(), value => UpdatePalette(false, "primary", value))
+                @ColorField("Secondary", Theme.PaletteLight.Secondary.ToString(), value => UpdatePalette(false, "secondary", value))
+                @ColorField("Background", Theme.PaletteLight.Background.ToString(), value => UpdatePalette(false, "background", value))
+                @ColorField("Surface", Theme.PaletteLight.Surface.ToString(), value => UpdatePalette(false, "surface", value))
+                @ColorField("App bar", Theme.PaletteLight.AppbarBackground.ToString(), value => UpdatePalette(false, "appbar", value))
+                @ColorField("Primary text", Theme.PaletteLight.TextPrimary.ToString(), value => UpdatePalette(false, "text-primary", value))
+                @ColorField("Secondary text", Theme.PaletteLight.TextSecondary.ToString(), value => UpdatePalette(false, "text-secondary", value))
+                @ColorField("Divider", Theme.PaletteLight.Divider.ToString(), value => UpdatePalette(false, "divider", value))
+                @ColorField("Info", Theme.PaletteLight.Info.ToString(), value => UpdatePalette(false, "info", value))
+                @ColorField("Success", Theme.PaletteLight.Success.ToString(), value => UpdatePalette(false, "success", value))
+                @ColorField("Warning", Theme.PaletteLight.Warning.ToString(), value => UpdatePalette(false, "warning", value))
+                @ColorField("Error", Theme.PaletteLight.Error.ToString(), value => UpdatePalette(false, "error", value))
+            </div>
+        </details>
 
-        <MudDivider />
+        <details>
+            <summary>Dark palette</summary>
+            <div class="color-grid section-content">
+                @ColorField("Primary", Theme.PaletteDark.Primary.ToString(), value => UpdatePalette(true, "primary", value))
+                @ColorField("Secondary", Theme.PaletteDark.Secondary.ToString(), value => UpdatePalette(true, "secondary", value))
+                @ColorField("Background", Theme.PaletteDark.Background.ToString(), value => UpdatePalette(true, "background", value))
+                @ColorField("Surface", Theme.PaletteDark.Surface.ToString(), value => UpdatePalette(true, "surface", value))
+                @ColorField("App bar", Theme.PaletteDark.AppbarBackground.ToString(), value => UpdatePalette(true, "appbar", value))
+                @ColorField("Primary text", Theme.PaletteDark.TextPrimary.ToString(), value => UpdatePalette(true, "text-primary", value))
+                @ColorField("Secondary text", Theme.PaletteDark.TextSecondary.ToString(), value => UpdatePalette(true, "text-secondary", value))
+                @ColorField("Divider", Theme.PaletteDark.Divider.ToString(), value => UpdatePalette(true, "divider", value))
+                @ColorField("Info", Theme.PaletteDark.Info.ToString(), value => UpdatePalette(true, "info", value))
+                @ColorField("Success", Theme.PaletteDark.Success.ToString(), value => UpdatePalette(true, "success", value))
+                @ColorField("Warning", Theme.PaletteDark.Warning.ToString(), value => UpdatePalette(true, "warning", value))
+                @ColorField("Error", Theme.PaletteDark.Error.ToString(), value => UpdatePalette(true, "error", value))
+            </div>
+        </details>
 
-        <MudText Typo="Typo.subtitle1">Dark palette</MudText>
-        <div class="color-grid">
-            @ColorField("Primary", Theme.PaletteDark.Primary.ToString(), value => UpdatePalette(true, "primary", value))
-            @ColorField("Secondary", Theme.PaletteDark.Secondary.ToString(), value => UpdatePalette(true, "secondary", value))
-            @ColorField("Background", Theme.PaletteDark.Background.ToString(), value => UpdatePalette(true, "background", value))
-            @ColorField("Surface", Theme.PaletteDark.Surface.ToString(), value => UpdatePalette(true, "surface", value))
-            @ColorField("App bar", Theme.PaletteDark.AppbarBackground.ToString(), value => UpdatePalette(true, "appbar", value))
-            @ColorField("Primary text", Theme.PaletteDark.TextPrimary.ToString(), value => UpdatePalette(true, "text-primary", value))
-            @ColorField("Secondary text", Theme.PaletteDark.TextSecondary.ToString(), value => UpdatePalette(true, "text-secondary", value))
-            @ColorField("Divider", Theme.PaletteDark.Divider.ToString(), value => UpdatePalette(true, "divider", value))
-            @ColorField("Info", Theme.PaletteDark.Info.ToString(), value => UpdatePalette(true, "info", value))
-            @ColorField("Success", Theme.PaletteDark.Success.ToString(), value => UpdatePalette(true, "success", value))
-            @ColorField("Warning", Theme.PaletteDark.Warning.ToString(), value => UpdatePalette(true, "warning", value))
-            @ColorField("Error", Theme.PaletteDark.Error.ToString(), value => UpdatePalette(true, "error", value))
-        </div>
+        <details open>
+            <summary>Typography</summary>
+            <div class="section-content">
+                @TextField(
+                    "Font family",
+                    string.Join(", ", Theme.Typography.Default.FontFamily ?? Array.Empty<string>()),
+                    UpdateFontFamily,
+                    "Roboto, Helvetica, Arial, sans-serif")
 
-        <MudDivider />
+                <div class="typography-table" role="table" aria-label="Typography settings">
+                    <div class="typography-header" role="row">
+                        <span>Style</span>
+                        <span>Size</span>
+                        <span>Weight</span>
+                        <span>Line height</span>
+                        <span>Letter spacing</span>
+                    </div>
+                    @TypographyRow("H1", Theme.Typography.H1)
+                    @TypographyRow("H2", Theme.Typography.H2)
+                    @TypographyRow("H3", Theme.Typography.H3)
+                    @TypographyRow("H4", Theme.Typography.H4)
+                    @TypographyRow("H5", Theme.Typography.H5)
+                    @TypographyRow("H6", Theme.Typography.H6)
+                    @TypographyRow("Subtitle 1", Theme.Typography.Subtitle1)
+                    @TypographyRow("Subtitle 2", Theme.Typography.Subtitle2)
+                    @TypographyRow("Body 1", Theme.Typography.Body1)
+                    @TypographyRow("Body 2", Theme.Typography.Body2)
+                    @TypographyRow("Button", Theme.Typography.Button)
+                    @TypographyRow("Caption", Theme.Typography.Caption)
+                    @TypographyRow("Overline", Theme.Typography.Overline)
+                </div>
+                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">
+                    Use CSS values such as 1rem, 400, 1.5 and 0.01em.
+                </MudText>
+            </div>
+        </details>
 
-        <MudText Typo="Typo.subtitle1">Typography</MudText>
-        <div class="text-grid">
-            @TextField("Font family", string.Join(", ", Theme.Typography.Default.FontFamily ?? Array.Empty<string>()), UpdateFontFamily)
-            @TextField("Heading 1 size", Theme.Typography.H1.FontSize ?? string.Empty, value => UpdateTypography("h1", value))
-            @TextField("Heading 2 size", Theme.Typography.H2.FontSize ?? string.Empty, value => UpdateTypography("h2", value))
-            @TextField("Body 1 size", Theme.Typography.Body1.FontSize ?? string.Empty, value => UpdateTypography("body1", value))
-            @TextField("Body 2 size", Theme.Typography.Body2.FontSize ?? string.Empty, value => UpdateTypography("body2", value))
-            @TextField("Button size", Theme.Typography.Button.FontSize ?? string.Empty, value => UpdateTypography("button", value))
-        </div>
-
-        <MudDivider />
-
-        <MudText Typo="Typo.subtitle1">Shape</MudText>
-        <MudText Typo="Typo.body2">Default border radius: @BorderRadius px</MudText>
-        <MudSlider T="int"
-                   Min="0"
-                   Max="32"
-                   Step="1"
-                   Value="BorderRadius"
-                   ValueChanged="UpdateRadius"
-                   Color="Color.Primary" />
+        <details open>
+            <summary>Shape</summary>
+            <div class="section-content">
+                <MudText Typo="Typo.body2">Default border radius: @BorderRadius px</MudText>
+                <MudSlider T="int"
+                           Min="0"
+                           Max="32"
+                           Step="1"
+                           Value="BorderRadius"
+                           ValueChanged="UpdateRadius"
+                           Color="Color.Primary" />
+            </div>
+        </details>
 
         <MudStack Row="true" Justify="Justify.FlexEnd">
             <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.RestartAlt" OnClick="Reset">
-                Reset theme
+                Reset to MudBlazor defaults
             </MudButton>
         </MudStack>
     </MudStack>
@@ -122,10 +151,18 @@
         builder.AddContent(sequence++, label);
         builder.CloseElement();
 
+        builder.OpenElement(sequence++, "code");
+        builder.AddContent(sequence++, NormalizeColor(value));
+        builder.CloseElement();
+
         builder.CloseElement();
     };
 
-    private RenderFragment TextField(string label, string value, Func<string, Task> changed) => builder =>
+    private RenderFragment TextField(
+        string label,
+        string value,
+        Func<string, Task> changed,
+        string placeholder = "") => builder =>
     {
         var sequence = 0;
         builder.OpenElement(sequence++, "label");
@@ -138,6 +175,7 @@
         builder.OpenElement(sequence++, "input");
         builder.AddAttribute(sequence++, "type", "text");
         builder.AddAttribute(sequence++, "value", value);
+        builder.AddAttribute(sequence++, "placeholder", placeholder);
         builder.AddAttribute(sequence++, "aria-label", label);
         builder.AddAttribute(sequence++, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(
             this,
@@ -147,6 +185,47 @@
         builder.CloseElement();
     };
 
+    private RenderFragment TypographyRow(string label, BaseTypography typography) => builder =>
+    {
+        var sequence = 0;
+        builder.OpenElement(sequence++, "div");
+        builder.AddAttribute(sequence++, "class", "typography-row");
+        builder.AddAttribute(sequence++, "role", "row");
+
+        builder.OpenElement(sequence++, "strong");
+        builder.AddContent(sequence++, label);
+        builder.CloseElement();
+
+        AddTypographyInput(builder, ref sequence, label, "font size", typography.FontSize ?? string.Empty,
+            value => UpdateTypography(typography, "font-size", value));
+        AddTypographyInput(builder, ref sequence, label, "font weight", typography.FontWeight ?? string.Empty,
+            value => UpdateTypography(typography, "font-weight", value));
+        AddTypographyInput(builder, ref sequence, label, "line height", typography.LineHeight ?? string.Empty,
+            value => UpdateTypography(typography, "line-height", value));
+        AddTypographyInput(builder, ref sequence, label, "letter spacing", typography.LetterSpacing ?? string.Empty,
+            value => UpdateTypography(typography, "letter-spacing", value));
+
+        builder.CloseElement();
+    };
+
+    private void AddTypographyInput(
+        RenderTreeBuilder builder,
+        ref int sequence,
+        string styleLabel,
+        string propertyLabel,
+        string value,
+        Func<string, Task> changed)
+    {
+        builder.OpenElement(sequence++, "input");
+        builder.AddAttribute(sequence++, "type", "text");
+        builder.AddAttribute(sequence++, "value", value);
+        builder.AddAttribute(sequence++, "aria-label", $"{styleLabel} {propertyLabel}");
+        builder.AddAttribute(sequence++, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(
+            this,
+            async args => await changed(args.Value?.ToString() ?? string.Empty)));
+        builder.CloseElement();
+    }
+
     private Task ToggleDarkMode(bool value) => IsDarkModeChanged.InvokeAsync(value);
 
     private async Task UpdatePalette(bool dark, string property, string value)
@@ -155,42 +234,18 @@
 
         switch (property)
         {
-            case "primary":
-                palette.Primary = value;
-                break;
-            case "secondary":
-                palette.Secondary = value;
-                break;
-            case "background":
-                palette.Background = value;
-                break;
-            case "surface":
-                palette.Surface = value;
-                break;
-            case "appbar":
-                palette.AppbarBackground = value;
-                break;
-            case "text-primary":
-                palette.TextPrimary = value;
-                break;
-            case "text-secondary":
-                palette.TextSecondary = value;
-                break;
-            case "divider":
-                palette.Divider = value;
-                break;
-            case "info":
-                palette.Info = value;
-                break;
-            case "success":
-                palette.Success = value;
-                break;
-            case "warning":
-                palette.Warning = value;
-                break;
-            case "error":
-                palette.Error = value;
-                break;
+            case "primary": palette.Primary = value; break;
+            case "secondary": palette.Secondary = value; break;
+            case "background": palette.Background = value; break;
+            case "surface": palette.Surface = value; break;
+            case "appbar": palette.AppbarBackground = value; break;
+            case "text-primary": palette.TextPrimary = value; break;
+            case "text-secondary": palette.TextSecondary = value; break;
+            case "divider": palette.Divider = value; break;
+            case "info": palette.Info = value; break;
+            case "success": palette.Success = value; break;
+            case "warning": palette.Warning = value; break;
+            case "error": palette.Error = value; break;
         }
 
         await ThemeChanged.InvokeAsync(Theme);
@@ -208,25 +263,14 @@
         await ThemeChanged.InvokeAsync(Theme);
     }
 
-    private async Task UpdateTypography(string property, string value)
+    private async Task UpdateTypography(BaseTypography typography, string property, string value)
     {
         switch (property)
         {
-            case "h1":
-                Theme.Typography.H1.FontSize = value;
-                break;
-            case "h2":
-                Theme.Typography.H2.FontSize = value;
-                break;
-            case "body1":
-                Theme.Typography.Body1.FontSize = value;
-                break;
-            case "body2":
-                Theme.Typography.Body2.FontSize = value;
-                break;
-            case "button":
-                Theme.Typography.Button.FontSize = value;
-                break;
+            case "font-size": typography.FontSize = value; break;
+            case "font-weight": typography.FontWeight = value; break;
+            case "line-height": typography.LineHeight = value; break;
+            case "letter-spacing": typography.LetterSpacing = value; break;
         }
 
         await ThemeChanged.InvokeAsync(Theme);
